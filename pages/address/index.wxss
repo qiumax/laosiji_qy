@@ -1,0 +1,100 @@
+page{
+  background-color: #e5e5e5;
+  
+}
+
+.addlist{
+  background-color: white;
+  margin-left:10px;
+  margin-right:10px;
+  margin-top:20rpx;
+  border-radius: 16rpx;  
+  display: flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-top:20rpx;
+  padding-bottom:20rpx;
+}
+
+.addtitle{
+  display: flex;
+  color:#666666;
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-left:20rpx;
+  margin-right:20rpx;
+  line-height: 40rpx;
+  height: 40rpx;
+  padding-bottom:20rpx;
+}
+
+.addcontent{
+  display: flex;
+  color:#666666;
+  font-size: 28rpx;
+  margin-left:20rpx;
+  line-height: 40rpx;
+  margin-right:20rpx;
+ 
+}
+
+.line{
+margin: 20rpx 20rpx;
+height: 1rpx;
+background-color: #E8E8E8;
+}
+
+.bottomspan{
+  margin-left:20rpx;
+  margin-right:20rpx;
+  font-size: 28rpx;
+  color:#666666;
+  height: 60rpx;
+  line-height: 60rpx;
+  vertical-align: middle;
+
+}
+
+.spanleft{
+  float: left;
+  height: 60rpx;
+  line-height: 60rpx;
+  vertical-align: middle;
+
+}
+
+.spanright{
+  float: right;
+  height: 60rpx;
+  line-height: 60rpx;
+  vertical-align: middle;
+
+}
+.spanlabel{
+  height: 60rpx;
+  line-height: 60rpx;
+  vertical-align: middle;
+  
+}
+
+.morenimg{
+  width:30rpx;
+  height:30rpx;
+  padding-top:15rpx;
+}
+
+.btn_submit{
+  background-color: #ED1C24;
+  color:#ffffff;
+  width: 95%;
+  z-index: -1;
+}
+
+.bottom_btn{
+  width: 100%;
+  position: fixed;
+  bottom: 10rpx;
+  flex-flow:row nowrap;
+  justify-content:flex-start;
+  vertical-align:middle;
+}

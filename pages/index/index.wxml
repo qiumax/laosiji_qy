@@ -1,0 +1,88 @@
+<!--导航-->
+
+<view class="top_tab_view">
+      <i-tabs current="{{ current_scroll }}" scroll bindchange="handleChangeScroll">
+          <i-tab wx:for="{{trucks}}" wx:for-item='truck' wx:for-index='index' key="{{index}}" title="{{truck.name}}"></i-tab>
+      </i-tabs>
+</view>
+
+<view style='background-color:white;'>
+    <view catchtap='left' style="background-color:white;text-align:center;padding-top:50rpx;padding-bottom:50rpx;width:10%;display:   inline-block;">
+          <image src="/images/arrow1.png" style="width:60%;vertical-align:middle;{{leftshow}}"  mode="widthFix" ></image>
+    </view>
+    <view style="background-color:white;text-align:center;padding-top:50rpx;padding-bottom:50rpx;width:80%;display: inline-block;">
+          <image wx:if="{{show}}" src="{{truckimg}}" style="width:100%;vertical-align:middle;"  mode="widthFix"/>
+    </view>
+    <view catchtap='right' style="background-color:white;text-align:center;padding-top:50rpx;padding-bottom:50rpx;width:10%;display: inline-block;">
+          <image src="/images/arrow2.png" style="width:60%;vertical-align:middle;"  mode="widthFix"></image>
+    </view>
+</view>
+
+<view style="background-color:white;text-align:center;padding-top:50rpx;display:flex;font-size:32rpx;color:#66666">
+    <view style="width:33.3%">{{truckload}}吨</view>
+    <view style="width:33.3%">{{trucksize}}</view>
+    <view style="width:33.3%">{{truckvolume}}方</view>
+</view>
+
+
+<view style="background-color:white;text-align:center;padding-bottom:50rpx;padding-top:10rpx;display:flex;color:#666666;font-size:25rpx;">
+    <view style="width:33.3%">载重</view>
+    <view style="width:33.3%">长*宽*高</view>
+    <view style="width:33.3%">体积</view>
+</view>
+
+
+<!--车型-->
+<view style="margin-top:20rpx;background-color:white;">
+
+  <radio-group name="radio-group" bindchange="typeChange">
+    <label bindtap="label_click" data-value="1" class="{{currentId==1?'label_radio_selected':'label_radio'}}"> 不限</label>
+    <label bindtap="label_click" data-value="2" class="{{currentId==2?'label_radio_selected':'label_radio'}}" >高栏</label>
+    <label bindtap="label_click" data-value="3" class="{{currentId==3?'label_radio_selected':'label_radio'}}" >重板</label>
+    <label bindtap="label_click" data-value="4" class="{{currentId==4?'label_radio_selected':'label_radio'}}" >轻板</label>
+    <label bindtap="label_click" data-value="5" class="{{currentId==5?'label_radio_selected':'label_radio'}}"> 厢式</label>
+  
+  </radio-group>
+ 
+</view>
+
+<view class="need_follow" wx:if="{{hasneeds}}" catchtap='gotoneeds'>
+  有运单需要跟进
+</view>
+
+
+<!--发单-->
+<view class="tab_bottom" style="display:flex;" wx:if="{{phone}}">
+    <!--主页-->
+    <view  catchtap ="gotomember"  style="width:20%;text-align:center;border-right:1px  #E8E8E8 solid;">
+          <view style="height:50rpx;padding-top:7rpx;"><image style="height:47rpx;width:47rpx;padding-top:1rpx;" src="/images/wode.png"/></view>
+          <view style="font-size:25rpx;height:40rpx;line-height:40rpx;">我的</view>
+    </view>
+
+  
+  <view  catchtap ="getorder"  style="width:80%;text-align:center;background-color:#ED1C24;">
+        <view  style="font-size:28rpx;color:white;height:100rpx;line-height:100rpx;">下一步</view>
+    </view>
+</view>
+
+<view class="tab_bottom" style="display:flex;" wx:else>
+    <!--主页-->
+      <view   style="width:20%;text-align:center;border-right:1px  #E8E8E8 solid;">
+      <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-type='gotomember' class="wode_btn">
+        <view style="height:50rpx;padding-top:7rpx;"><image style="height:47rpx;width:47rpx;padding-top:1rpx;" src="/images/wode.png"/></view>
+         <view style="font-size:25rpx;height:40rpx;line-height:40rpx;">我的</view>
+     </button>
+  </view>
+
+ <view   style="width:80%;text-align:center;background-color:#ED1C24;">
+    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-type='getorder'  style="background-color:#ED1C24;">
+       <view  style="font-size:28rpx;color:white;height:100rpx;line-height:100rpx;">下一步</view>
+        </button>
+
+    </view>
+
+  
+
+   
+</view>
+

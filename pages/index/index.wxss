@@ -1,0 +1,168 @@
+page{
+  background-color: #e5e5e5;
+  
+}
+.top_tab{
+  width:28%;
+  height:100rpx;
+  float:left;
+  line-height:100rpx;
+  color:#666666;
+}
+.top_tab_tab{
+  width: 83%;
+  float: left;
+  height:100rpx;
+  
+}
+
+.top_tab_mem{
+  width:16%;
+  height:100rpx;
+  float:left;
+  line-height:100rpx;
+  color:#666666;
+
+}
+.wode_btn::after{
+border: none;
+
+}
+.wode_btn{
+ background-color:white;
+  font-size:28rpx;
+
+}
+
+.top_tab_view{
+  width:100%;
+  height:100rpx;
+  text-align:center;
+  font-size:32rpx;
+  background-color:white;
+}
+
+.line{
+margin: 0 auto;
+width: 100%;
+height: 1rpx;
+background-color: #E8E8E8;
+}
+
+.locationinfo{
+  margin-left:10px;
+  margin-top:20rpx;
+  background-color: white;
+  display: flex;
+  font-size: 34rpx;
+}
+
+.img_view{
+  width: 50rpx;
+  text-align: center;
+  height: 140rpx;
+}
+
+.img_view image{
+  padding-top:55rpx;
+}
+
+.input_view span{
+  height: 140rpx;
+  line-height: 140rpx;
+  color:#666666;
+  overflow: hidden;
+   display:block;
+}
+
+.circle_img{
+  padding-left:10px;
+  height: 140rpx;
+}
+
+.circle_img image{
+  width:12px;
+  height:12px;
+  padding-top:55rpx;
+  display:block;
+}
+
+.jiantou_img{
+    padding-left:20rpx;
+}
+
+.jiantou_img image{
+  width:30rpx;
+  height:30rpx;
+  padding-top:40rpx;
+  display:block;
+}
+
+.btn_submit{
+  background-color: #ED1C24;
+  color:#ffffff;
+  width: 95%;
+}
+
+.bottom_btn{
+  width: 100%;
+  position: fixed;
+  bottom: 10rpx;
+  flex-flow:row nowrap;
+  justify-content:flex-start;
+  vertical-align:middle;
+}
+
+.tab_bottom{
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  background-color:white;
+  border-top: 1px #E8E8E8 solid;
+}
+
+.need_follow{
+  position: fixed;
+  bottom: 200rpx;
+  height: 70rpx;
+  background-color:#3592E1;
+  opacity: 0.8;
+  color:white;
+  font-size: 26rpx;
+  text-align: center;
+  line-height: 70rpx;
+  border-radius: 30rpx;
+  width: 40%;
+  margin-left: 30%;
+}
+
+
+.label_radio{
+  width: 17.6%;
+  height: 70rpx;
+  background-color: #f5f5f5;
+  margin-left:2%;
+  display: inline-block;
+  text-align: center;
+  line-height: 70rpx;
+  margin-top:20rpx;
+  margin-bottom:20rpx; 
+  font-size: 30rpx;
+  color:#666666; 
+}
+
+.label_radio_selected{
+    width: 17.6%;
+  height: 70rpx;
+  background-color: #ED1C24;
+  margin-left:2%;
+  display: inline-block;
+  text-align: center;
+  line-height: 70rpx;
+  margin-top:20rpx;
+  margin-bottom:20rpx; 
+  font-size: 30rpx;
+  color:white; 
+}

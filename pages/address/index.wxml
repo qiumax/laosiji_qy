@@ -1,0 +1,33 @@
+  <view catchtap='setprevdata'  class="addlist" wx:if="{{addlist.length>0}}" wx:for="{{addlist}}" wx:for-item="add" data-addinfo='{{add}}'>
+
+      <view class="addtitle">
+        {{add.name}} {{add.phone}}
+      </view>
+      <view class="addcontent">
+        {{add.address}} {{add.note}}
+      </view>
+      <view class="line"></view>
+      <view class="bottomspan">
+          <view class="spanleft">
+                      <image catchtap='setdefault' data-add_id='{{add._id}}' wx:if='{{add._id != default_address}}' class ="morenimg"  src="/images/radio_no.png"  />
+            <image  wx:if='{{add._id == default_address}}' class ="morenimg" src="/images/radio_checked.png"/>
+          </view>
+
+            <view class="spanleft" style="padding-left:5rpx;">
+             <label catchtap='setdefault' data-add_id='{{add._id}}'>
+                 设为默认地址
+            </label>
+            </view>
+
+ 
+            <view class="spanright">
+                  <image catchtap='editaddress' src='/images/bianji.png' style="width:25rpx;height:25rpx;padding-right:5rpx;" /><label catchtap='editaddress'  data-add_info='{{add}}'>编辑</label> 
+                  <image catchtap='deladdress' data-add_id='{{add._id}}' src='/images/shanchu.png' style="width:25rpx;height:25rpx;padding-left:30rpx;padding-right:5rpx;" /><label catchtap='deladdress' data-add_id='{{add._id}}'>删除</label> 
+            </view>
+      </view>
+  </view>
+
+<!--发单-->
+<view class="bottom_btn" > 
+ <button catchtap='newadd'  class="btn_submit" >新增地址</button>
+</view>

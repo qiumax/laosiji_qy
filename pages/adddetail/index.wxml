@@ -1,0 +1,45 @@
+
+
+<!--详情-->
+<view class='view_padding_left' style='padding-bottom:10rpx;' >
+    
+  <view  class='table_item' style="display:flex;flex-flow:row nowrap;justify-content:flex-start;vertical-align:middle">
+      <view class='input' style='width:40%;text-align:left;margin-left:20rpx;'>
+          <input bindinput='name_input' placeholder='姓名' value="{{name}}"></input>
+        </view>
+       <view class='input' style='width:40%;text-align:left;margin-left:20rpx;'>
+       <input bindinput='phone_input' type="number" placeholder='电话' value="{{phone}}"></input>
+      </view>
+  </view>
+
+<view class='line'></view>
+
+   <view bindtap="getUserLocation"  class='table_item' style="display:flex;flex-flow:row nowrap;justify-content:flex-start;vertical-align:middle">
+
+    <view class='input' style='width:100%;text-align:left;margin-left:20rpx;'>
+       <view class='tarea' bindinput='area_input'>{{address}}</view>
+    </view>
+
+      <view  style='width:20%;text-align:right;padding-right:30rpx;;height:100rpx;line-height:100rpx;font-size:28rpx;color:#666666;vertical-align:middle;'>
+             <image src="/images/dingwei.png" style='width:50rpx;height:50rpx;margin-top:25rpx;'></image>
+      </view>
+  </view>
+
+<view class='line'></view>
+
+<view  class='table_item' style="display:flex;flex-flow:row nowrap;justify-content:flex-start;vertical-align:middle">
+    <view class='input' style='width:100%;text-align:left;margin-left:20rpx;'>
+       <input bindinput='note_input' type="text" placeholder='地址备注' value="{{note}}"></input>
+    </view>
+</view>
+
+
+
+ </view>
+
+
+
+ <view  style="display:flex;flex-flow:row nowrap;justify-content:flex-start;vertical-align:middle;padding-top:20rpx;">
+<button catchtap="submit"  style="background-color:#ED1C24;color:white;width:95%">保存</button>
+</view>
+

@@ -1,0 +1,15 @@
+<!--head top-->
+<view class="head_top" style="height:300rpx;z-index:9;">
+  <view style="padding-top:10rpx;font-size:30rpx;color:white;text-align:center;">
+    <image src="{{avatar}}" style="width:120rpx;height:120rpx;border-radius:50%;"></image>
+  <view style='vertical-align:middle;line-height:50rpx;height:50rpx;'>{{name}}</view> 
+   <view style="padding-top:40rpx;float:right;padding-right:20rpx;height:50rpx;font-size:25rpx;"> {{companyname}}</view>    
+  </view>
+</view>
+
+<view style="margin-top:320rpx;">
+      <i-cell-group>
+        <i-cell title="运单记录" is-link url="/pages/orders/index" class="ilist" ></i-cell>
+        <i-cell title="我的地址" is-link  url="/pages/address/index" class="ilist"></i-cell>
+      </i-cell-group>   
+</view>

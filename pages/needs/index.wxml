@@ -1,0 +1,35 @@
+
+<view class="viewlist" wx:if="{{orderlist.length>0}}" wx:for="{{orderlist}}" wx:for-item="order" catchtap='gotodetail' data-order_id='{{order._id}}'>
+    <!--title-->
+    <view class="viewbold">
+        {{order.from.city}} -> {{order.to.city}}
+        <view class="span_right" style="float:right;color:#3592E1;padding-right:15px;">{{order.orderstatus}}</view>
+    </view>
+
+    <view class='line'></view>
+
+    <!--detail--->
+    <view>
+        <view style='display:table-cell;padding-top:20rpx;padding-left:5px;padding-bottom:20rpx;'>
+            <view class="viewtitle">
+                <image src="/images/huowu.png" class="view_img"/> 
+                <label class="viewlabel">{{order.cargo}} / {{order.mass}}吨 / {{order.size}}</label>
+        
+            </view>
+              <view class="viewtitle">
+                  <image src="/images/shijian.png" class="view_img"/>
+                  <label class="viewlabel">{{order.time}} </label>
+              </view>
+              <view class="viewtitle">
+                  <image src="/images/fahuo.png" class="view_img"/> 
+                  <label class="viewlabel">{{order.from.address}}</label>
+              </view>
+              <view class="viewtitle">
+                  <image src="/images/shouhuo.png" class="view_img"/> 
+                  <label class="viewlabel">{{order.to.address}}</label>
+              </view>
+        </view>
+    </view>
+   
+</view>
+

@@ -1,0 +1,82 @@
+<!--寄件人信息-->
+<view class="locationinfo" style="display:flex;">
+    <view class="locationicon" style="width:20px;"><span>寄</span></view>
+    <view catchtap='getsendfrom' class="addinfo" style="width:{{loacationwidth}}px;">
+      <view class="addtitle">{{sendfrom_title}}</view>
+       
+      <view class="addcontent">{{sendfrom_address}}</view>
+
+    </view>
+    <view catchtap='getaddfrom' class="addressbook" style="width:{{addwidth}}px">地址簿</view>
+</view>
+
+<view class="line"></view>
+
+<!--收件人信息-->
+<view class="locationinfo">
+    <view class="locationicon" style="width:20px;"><span>收</span></view>
+    <view catchtap='getsendto' class="addinfo" style="width:{{loacationwidth}}px;">
+      <view class="addtitle">{{sendto_title}} </view>
+       
+      <view class="addcontent">{{sendto_address}}</view>
+
+    </view>
+    <view  catchtap='getaddto' class="addressbook" style="width:{{addwidth}}px">地址簿</view>
+</view>
+
+
+
+<!--时间-->
+
+
+<view style="margin-top:20rpx;padding-bottom:150rpx">         
+        <i-input  class="ilist" type="text" catchtap='datepicker' title="接货时间"  placeholder=" 请选择接货时间" disabled='disabled' value="{{starttime}}"/>
+        <i-input  class="ilist" type="text" bind:change='productname' title="货物名称"  placeholder=" 货物名称" />
+        <i-input  class="ilist" type="text" bind:change='mass' title="货物重量"  placeholder=" 重量(吨)"  />
+        <view class="ckg">
+              <label style="color:#666666;min-width:65px;padding-right:10px">货物尺寸</label>
+              <input class="ckginput" bindblur='changdu' placeholder=" 长(米)" value="{{changdumi}}"/> 
+              <label style="color:#666666;padding-left:10px;padding-right:10px"></label>
+             <input class="ckginput" bindblur='kuandu' placeholder=" 宽(米)" value="{{kuandumi}}"/> 
+             <label style="color:#666666;padding-left:10px;padding-right:10px"></label>
+              <input class="ckginput" bindblur='gaodu' placeholder=" 高(米)" value="{{gaodumi}}"/>
+              <label style="color:#666666;padding-left:10px;padding-right:10px"></label>
+        </view>
+
+        <i-input wx:if="{{!pickerViewShow}}" class="ilist" type="text" bind:change='remark' title="运单备注"  placeholder=" 运单备注"   value="{{remark}}"/>
+</view>
+
+<view class="pick_datetime" wx:if="{{pickerViewShow}}" animation="{{pickerAnimation}}" style="{{pickerViewStyle}}">
+  <view class="pick_datetime_tool">
+    <view class="pick_datetime_clear" catchtap="pickerClear">清除</view>
+    <view class="pick_datetime_ok" catchtap="pickerOk">完成</view>
+  </view>
+  <picker-view indicator-style="height: 40px;border-top:1px solid #eee;border-bottom:1px solid #eee;" value="{{pickDatetimeValue}}" bindchange="bindChange" style="height:{{pickerViewHeight}}rpx;">
+    <picker-view-column>
+      <view wx:for="{{pickerDateTextArr}}" class="pick_datetime_column">{{item}}</view>
+    </picker-view-column>
+    <picker-view-column>
+     <view wx:for="{{pickerHourTextArr}}" class="pick_datetime_column">{{item}}</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view wx:for="{{pickerMinuteTextArr}}" class="pick_datetime_column">{{item}}</view>
+    </picker-view-column>
+  </picker-view>
+</view>
+
+
+
+<!--发单-->
+<view class="tab_bottom" style="display:flex;">
+    <!--主页-->
+    <view   style="width:60%;text-align:center;border-right:1px  #E8E8E8 solid;">
+        <view style="font-size:26rpx;height:50rpx;line-height:50rpx;color:#ED1C24;margin-top:5rpx;">￥{{money}}元</view>
+        <view style="height:50rpx;font-size:26rpx;line-height:50rpx;color:#666666;margin-top:-10rpx;">{{mass}}吨 * {{distance}}公里 * {{price_dun}}元/吨/公里</view>
+          
+    </view>
+
+  
+  <view  catchtap ="pulish"  style="width:40%;text-align:center;background-color:#ED1C24;">
+        <view  style="font-size:28rpx;color:white;height:100rpx;line-height:100rpx;">下单</view>
+    </view>
+</view>

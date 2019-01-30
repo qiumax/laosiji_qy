@@ -1,0 +1,279 @@
+
+<map  id="navi_map" style="width:100%;height:{{windowHeight/2}}px" show-location="true"   markers="{{markers}}" include-points="{{points}}" polyline="{{polyline}}">
+<cover-view bindtap='showmap' style="width:100%;height:{{windowHeight/2}}px;background-color:{{backcolor}}"></cover-view>
+ </map>
+
+<view style="opacity:{{opacity}}">
+<!--运单状态-->
+
+<view class="yundan_statebig" wx:if="{{!orderinfo.state}}">
+  <view class="statebig" catchtap='showdetail'>待接单 <image src='/images/jiantou_you.png' style="width:32rpx;height:32rpx;" /></view>
+  
+</view>
+
+<view class="yundan_statebig" wx:if="{{orderinfo.state == 1}}">
+  <view class="statebig" catchtap='showdetail'>等待司机取货 <image src='/images/jiantou_you.png' style="width:32rpx;height:32rpx;" /></view>
+  
+</view>
+
+<view class="yundan_statebig" wx:if="{{orderinfo.state == 2}}">
+  <view class="statebig" catchtap='showdetail'>司机已确认取货 <image src='/images/jiantou_you.png' style="width:32rpx;height:32rpx;" /></view>
+ 
+</view>
+
+<view class="yundan_statebig" wx:if="{{orderinfo.state == 3}}">
+  <view class="statebig" catchtap='showdetail' >运送中 <image src='/images/jiantou_you.png' style="width:32rpx;height:32rpx;" /></view>
+
+</view>
+
+<view class="yundan_statebig" wx:if="{{orderinfo.state == 4}}">
+  <view class="statebig" catchtap='showdetail'>司机已确认交货 <image src='/images/jiantou_you.png' style="width:32rpx;height:32rpx;" /></view>
+  <view class="state_btnbig" wx:if="{{phone}}">
+
+      <view class='btnview1'>
+          <button class="btnbig"  catchtap='tousu' style="width:250rpx;">在线投诉</button>
+      </view>
+      <view class='btnview2'>
+          <button class="btnbig" catchtap='confirmDeliver' style="width:250rpx;">确认收货</button>
+      </view>
+  </view>
+
+    <view class="state_btnbig" wx:else>
+
+      <view class='btnview1'>
+          <button class="btnbig_blue" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-type='tousu' style="width:250rpx;">在线投诉</button>
+      </view>
+      <view class='btnview2'>
+          <button class="btnbig" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-type='confirmDeliver' style="width:250rpx;">确认收货</button>
+      </view>
+  </view>
+
+</view>
+
+<view class="yundan_statebig" wx:if="{{orderinfo.state == 5}}">
+  <view class="statebig" catchtap='showdetail' >投诉处理中 <image src='/images/jiantou_you.png' style="width:32rpx;height:32rpx;" /></view>
+</view>
+
+<view class="yundan_statebig" wx:if="{{orderinfo.state == 6}}">
+  <view class="statebig" catchtap='showdetail' >投诉处理已完成 <image src='/images/jiantou_you.png' style="width:32rpx;height:32rpx;" /></view>
+</view>
+<view class="yundan_statebig" wx:if="{{orderinfo.state == 7 && !orderinfo.comment_to_driver.time}}">
+  <view class="statebig" catchtap='showdetail'>已确认收货<image src='/images/jiantou_you.png' style="width:32rpx;height:32rpx;" /></view>
+  <view class="state_btnbig" >
+      <view class='btnview' wx:if="{{phone}}">
+          <button class="btnbig" catchtap='comment' style="width:250rpx;">评价</button>
+      </view>
+        <view class='btnview' wx:else>
+          <button class="btnbig" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-type='comment' style="width:250rpx;">评价</button>
+      </view>
+  </view>
+</view>
+
+<view class="yundan_statebig" wx:if="{{orderinfo.state == 7 && orderinfo.comment_to_driver.time}}">
+  <view class="statebig" catchtap='showdetail'>已评价<image src='/images/jiantou_you.png' style="width:32rpx;height:32rpx;" /></view>
+  
+</view>
+
+<view class="yundan_statebig" wx:if="{{orderinfo.state == 8}}">
+  <view class="statebig" catchtap='showdetail' >已完成<image src='/images/jiantou_you.png' style="width:32rpx;height:32rpx;" /></view>
+   
+</view>
+
+
+<!--司机信息-->
+<view wx:if="{{orderinfo.state}}" class='productname'>司机信息</view>
+  
+<view wx:if="{{orderinfo.state}}" class="line"></view>
+<view wx:if="{{orderinfo.state}}" class='driverinfo' style="display:flex;">
+    <view style="width:17%;">
+       <image style="width:100rpx;height:100rpx;border-radius:50px;vertical-align:middle;" src="{{orderinfo.driver.user.avatar}}"/>
+    </view>
+    <view style="width:63%;" class="span_label_left_x">
+        <view style="line-height:50rpx;">{{orderinfo.driver.user.name}}</view>
+         <view style="line-height:40rpx;">
+          <i-rate 
+              disabled="{{true}}"
+              value="{{orderinfo.driver.star}}"
+              size="15">
+              {{orderinfo.driver.star}}分
+          </i-rate>
+         </view>      
+    </view>
+    <view catchtap='makephonecall' style="width:20%;text-align:right;padding-top:10rpx;" class="span_label_right_x">
+         <image src="/images/phone.png" style="width:40rpx;height:40rpx;padding-top:20rpx;" />
+    </view>
+</view>
+
+
+
+    <!--货物详情-->
+<view  class='productname'>地址信息</view>
+  
+<view  class="line"></view>
+    <!--发货地 收货地-->
+<view   class="locationinfo" style="padding-top:20rpx;">
+    <view class="locationicon" style="width:20px;"><span>寄</span></view>
+    <view  catchtap='phone_fahuo' class="addinfo" style="width:{{windowWidth-68}}px;">
+            <view class="addtitle">{{orderinfo.from.name}} {{orderinfo.from.phone}}</view>
+            <view class="addcontent">{{orderinfo.from.address}}{{orderinfo.from.note}}</view>
+    </view>
+    <view catchtap='nav_fahuo' class="locationicon" style="width:18px;text-algin:right;">
+   
+    </view>
+</view>
+
+<view   class="locationinfo" style="padding-top:20rpx;padding-bottom:20rpx;">
+    <view class="locationicon" style="width:20px;"><span>收</span></view>
+    <view catchtap='phone_shouhuo' class="addinfo" style="width:{{windowWidth-68}}px">
+            <view class="addtitle">{{orderinfo.to.name}} {{orderinfo.to.phone}}</view>
+            <view class="addcontent">{{orderinfo.to.address}}{{orderinfo.to.note}}</view>
+    </view>
+    <view catchtap='nav_shouhuo' class="locationicon" style="width:18px;text-algin:right;">
+    
+    </view>
+</view>
+
+
+
+
+    <!--货物详情-->
+<view class='productname'>货物信息</view>
+<view class="line"></view>
+
+<view class="feiyong">
+<view class="feiyong_left">货物</view>
+   <view  class='feiyong_right'>{{orderinfo.cargo}}/{{orderinfo.mass}}吨/{{orderinfo.size}}</view>
+ 
+</view>
+
+<view style="background-color:white;width:100%;">
+<view class="line" style="margin-left:3%;width:97%;"></view>
+</view>
+
+<!--车型-->
+<view class="feiyong">
+  <view class="feiyong_left">车型</view>
+  <view class="feiyong_right">{{orderinfo.truck.name}} {{orderinfo.truck_type}}</view>
+</view>
+
+<view style="background-color:white;width:100%;">
+<view class="line" style="margin-left:3%;width:97%;"></view>
+</view>
+
+<!--备注-->
+<view class="feiyong">
+  <view class="feiyong_left">备注</view>
+  <view class="feiyong_right">{{orderinfo.remark}}</view>
+</view>
+
+
+<view style="background-color:white;width:100%;">
+<view class="line" style="margin-left:3%;width:97%;"></view>
+</view>
+
+<!--费用-->
+<view class="feiyong">
+  <view class="feiyong_left">费用</view>
+  <view class="feiyong_right">{{orderinfo.distance}}公里 <label style="color:#ED1C24">￥{{orderinfo.price}}元</label></view>
+</view>
+
+
+
+
+<!--签收信息-->
+<view wx:if="{{showpics}}" class='productname'>签收信息</view>
+  
+<view wx:if="{{showpics}}" class="line"></view>
+<view wx:if="{{showpics}}" class='driverinfo' style="display:flex;">
+    <view style="width:100%;">
+                 
+                <image catchtap='showqspics'  wx:for="{{orderinfo.driver_confirm_deliver_at.pics}}" wx:for-index="index" class="pt_image" src="{{orderinfo.driver_confirm_deliver_at.pics[index]}}" data-img="{{orderinfo.driver_confirm_deliver_at.pics[index]}}" />
+         
+      
+    </view>
+</view>
+
+
+<!--投诉信息-->
+<view wx:if="{{orderinfo.tousu_to_driver.content}}" class='productname'>投诉信息</view>
+  <view wx:if="{{orderinfo.tousu_to_driver.content}}" style="background-color:white;width:100%;">
+    <view class="line" style="margin-left:3%;width:97%;"></view>
+  </view>
+  <view wx:if="{{orderinfo.tousu_to_driver.content}}" class="feiyong_tousu">
+    <view class="feiyong_tousu_left" style="width:100%">{{orderinfo.tousu_to_driver.content}}</view>
+</view>
+
+<view wx:if="{{orderinfo.tousu_to_driver.content}}" class='driverinfo' style="display:flex;padding-top:0">
+  
+    <view style="width:100%;">
+      <image catchtap='showtspics'  wx:for="{{orderinfo.tousu_to_driver.pics}}" wx:for-index="index" class="pt_image" src="{{orderinfo.tousu_to_driver.pics[index]}}" data-img="{{orderinfo.tousu_to_driver.pics[index]}}" />
+
+    </view>
+</view>
+
+
+<!--处理投诉信息-->
+<view wx:if="{{orderinfo.plat_handle_tousu.content}}" class='productname'>投诉处理信息</view>
+  <view wx:if="{{orderinfo.plat_handle_tousu.content}}" style="background-color:white;width:100%;">
+    <view class="line" style="margin-left:3%;width:97%;"></view>
+  </view>
+  <view wx:if="{{orderinfo.plat_handle_tousu.content}}" class="feiyong_tousu">
+    <view class="feiyong_tousu_left" style="width:100%">{{orderinfo.plat_handle_tousu.content}}</view>
+</view>
+
+
+
+<view wx:if="{{orderinfo.plat_handle_tousu.content}}" class='driverinfo' style="display:flex;padding-top:0">
+  
+    <view style="width:100%;">
+      <image catchtap='showhandletspics'  wx:for="{{orderinfo.plat_handle_tousu.pics}}" wx:for-index="index" class="pt_image" src="{{orderinfo.plat_handle_tousu.pics[index]}}" data-img="{{orderinfo.plat_handle_tousu.pics[index]}}" />
+
+    </view>
+</view>
+
+
+<!--联系平台-->
+<view catchtap='phoneplat' class='phoneplat' style="">
+  <image src='/images/kefu.png' style="height:30rpx;width:30rpx; vertical-align:middle;"/> 
+  <span style="line-height:50rpx;font-size:30rpx;">老司机平台客服</span>
+  </view>
+
+
+</view>
+
+<!--记录-->
+<scroll-view wx:if="{{showdetail}}" class="xuan_bottom" style="height:{{windowHeight/2-40}}px;" catchtouchmove="preventTouchMove" scroll-y="true">
+  <view class='bottom_title'>运单跟踪</view>
+  <view class="line"></view>
+  <view class="bottom_detail">
+    <i-steps current="{{verticalCurrent}}" direction="vertical">
+          <i-step wx:for="{{logs}}" wx:for-item="log">
+              <view slot="title">
+                    {{log.action}}
+              </view>
+              <view slot="content">
+                  {{log.time}}
+              </view>
+          </i-step>
+      </i-steps>
+  </view>
+</scroll-view>
+
+<button  wx:if="{{showdetail}}" class='bottom_btn' catchtap='closedetail'>关闭</button>
+
+
+
+<view wx:if="{{showsms}}" class="xuan_sms_bottom" style="height:{{windowHeight/2-40}}px;">
+  
+    <view class='bottom_title'>短信验证码已发送至{{phone}},请注意查收</view>
+    <view class="line"></view>
+    <i-input  class="ilist" type="Number" bind:change='smscode' title="验证码"  placeholder=" 请输入手机验证码" maxlength='4' />
+    
+</view>
+<button  wx:if="{{showsms}}" class='bottom_btn' catchtap='confirmsms'>确认</button>
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+
+{
+  "navigationBarTitleText": "老司机",
+  "usingComponents": {
+    "i-tabs": "../../dist/tabs/index",
+    "i-tab": "../../dist/tab/index",
+    "i-panel": "../../dist/panel/index"
+  }
+}

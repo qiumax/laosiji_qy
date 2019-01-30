@@ -1,0 +1,15 @@
+page{
+  background-color: #e5e5e5;
+  
+}
+.head_top{
+  background-image: url('https://fpf-wx-1256343243.cos.ap-guangzhou.myqcloud.com/member_bg.png');
+  background-size: 100% 100%;
+  position: fixed;
+  top:0;
+  width: 100%;
+}
+
+.ilist{
+  color:#666666;
+}

@@ -1,0 +1,80 @@
+
+<!--导航-->
+<view class="top_tab_view">
+    <view bindtap="tabChoice" data-tabid="0" class='top_tab'  class="{{currentId==0?'top_tab_selected':'top_tab'}}">
+        我寄的({{ordernum}})
+    </view>
+    <view bindtap="tabChoice" data-tabid="1" class='top_tab'  class="{{currentId==1?'top_tab_selected':'top_tab'}}">
+      我收的({{myordernum}})
+    </view>
+</view>
+
+
+<view wx:if="{{currentId==0}}">
+  <view class="viewlist" wx:if="{{orderlist.length>0}}" wx:for="{{orderlist}}" wx:for-item="order" catchtap='gotodetail' data-order_id='{{order._id}}'>
+      <!--title-->
+      <view class="viewbold">{{order.from.city}} -> {{order.to.city}}
+          <view class="span_right" style="float:right;color:#3592E1;padding-right:30px;">{{order.orderstatus}}</view>
+      </view>
+
+      <view class='line'></view>
+      <!--detail--->
+      <view>
+          <view style='display:table-cell;padding-top:20rpx;padding-left:5px;padding-bottom:20rpx;'>
+              <view class="viewtitle"><image src="/images/huowu.png" class="view_img"/> 
+                  <label class="viewlabel">{{order.cargo}}</label>
+                  <label class="viewlabel" wx:if="{{order.price_type=='mass'}}">{{order.mass}}吨</label>
+                  <label class="viewlabel" wx:else>{{order.volume}}方</label>
+              </view>
+              <view class="viewtitle">
+                  <image src="/images/shijian.png" class="view_img"/> 
+                  <label class="viewlabel">{{order.time}} </label>
+              </view>
+              <view class="viewtitle">
+                  <image src="/images/fahuo.png" class="view_img"/> 
+                  <label class="viewlabel">{{order.from.address}}</label>
+              </view>
+              <view class="viewtitle">
+                  <image src="/images/shouhuo.png" class="view_img"/>
+                  <label class="viewlabel">{{order.to.address}}</label>
+              </view>
+          </view>
+      </view>
+
+  </view>
+</view>
+
+
+<view wx:if="{{currentId==1}}">
+  <view class="viewlist" wx:if="{{myorderlist.length>0}}" wx:for="{{myorderlist}}" wx:for-item="order" catchtap='gotomydetail' data-order_id='{{order._id}}'>
+      <!--title-->
+      <view class="viewbold">{{order.from.city}} -> {{order.to.city}}
+          <view class="span_right" style="float:right;color:#3592E1;padding-right:30px;">{{order.orderstatus}}</view>
+      </view>
+
+      <view class='line'></view>
+      <!--detail--->
+      <view>
+          <view style='display:table-cell;padding-top:20rpx;padding-left:5px;padding-bottom:20rpx;'>
+              <view class="viewtitle"><image src="/images/huowu.png" class="view_img"/> 
+                  <label class="viewlabel">{{order.cargo}}</label>
+                  <label class="viewlabel" wx:if="{{order.price_type=='mass'}}">{{order.mass}}吨</label>
+                  <label class="viewlabel" wx:else>{{order.volume}}方</label>
+              </view>
+              <view class="viewtitle">
+                  <image src="/images/shijian.png" class="view_img"/> 
+                  <label class="viewlabel">{{order.time}} </label>
+              </view>
+              <view class="viewtitle">
+                  <image src="/images/fahuo.png" class="view_img"/> 
+                  <label class="viewlabel">{{order.from.address}}</label>
+              </view>
+              <view class="viewtitle">
+                  <image src="/images/shouhuo.png" class="view_img"/>
+                  <label class="viewlabel">{{order.to.address}}</label>
+              </view>
+          </view>
+      </view>
+
+  </view>
+</view>
