@@ -135,19 +135,56 @@ Page({
 
   getorder:function(){
     var _this = this
-    var state = _this.data.isvalid
-    if(state == 0)
-    {
-      wx.showToast({
-        title: '请开通权限',
-        icon:'none',
-        duration:2000
+    if (_this.data.isvalid == 0){
+      handlogin.isLogin(() => {
+        wx.request({
+          url: app.globalData.host + '/api/com_user/getAccountInfo',
+          data: {
+            'user_id': wx.getStorageSync('user_id'),
+            's_id': wx.getStorageSync('s_id'),
+            'phone': wx.getStorageSync('phone'),
+          },
+          method: 'POST',
+          header: {
+            'content-type': 'application/json'
+          }, // 设置请求的 header
+          success: function (res) {
+            console.log(res)
+            if (!res.data.err && res.data.ok != '0' && res.data.company.state) {
+              wx.setStorageSync('name', res.data.name)//姓名
+              wx.setStorageSync('companyname', res.data.company.name)//公司名
+              wx.setStorageSync('account_id', res.data._id)//acccountid
+              wx.setStorageSync('default_address', res.data.default_address)//默认地址
+              wx.setStorageSync('price_dun', res.data.company.price_dun)
+              _this.setData({ isvalid: 1 })
+              wx.navigateTo({
+                url: '/pages/publish/index?truckid=' + _this.data.truckid + '&currentId=' + _this.data.currentId,
+              })
+            }
+            else {
+              wx.showToast({
+                title: '请开通权限',
+                icon: 'none',
+                duration: 2000
+              })
+              return false;
+            }
+          }
+        })
       })
-      return false;
     }
-    wx.navigateTo({
-      url: '/pages/publish/index?truckid=' + _this.data.truckid + '&currentId=' + _this.data.currentId,
-    })
+    else
+    {
+      var pages = getCurrentPages();
+      var currPage = pages[pages.length - 1];//当前页面
+      var prevpage = pages[pages.length - 2];//上一个页面
+      console.log(currPage)
+      console.log(pages)
+      wx.navigateTo({
+        url: '/pages/publish/index?truckid=' + _this.data.truckid + '&currentId=' + _this.data.currentId,
+      })
+    }
+   
   },
 
   gotomember:function(){
@@ -350,6 +387,7 @@ Page({
             console.log(res)
             if (res.data.phoneNumber) {
               var phone = res.data.phoneNumber
+              _this.setData({ phone: res.data.phoneNumber })
               //更新
               wx.request({
                 url: app.globalData.host + '/api/com_user/updatePhone',
@@ -366,7 +404,7 @@ Page({
                   console.log('update success')
                   wx.setStorageSync('phone', phone)
                   console.log(phone)
-                  _this.setData({phone:res.data.phoneNumber})
+                 
                   //进入相应页面
 
                   clearInterval(_this.data.interval)

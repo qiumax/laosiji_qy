@@ -31,6 +31,13 @@
 
 <view style="margin-top:20rpx;padding-bottom:150rpx">         
         <i-input  class="ilist" type="text" catchtap='datepicker' title="接货时间"  placeholder=" 请选择接货时间" disabled='disabled' value="{{starttime}}"/>
+        <i-input  class="ilist" type="text" catchtap='enddatepicker' title="到货时间"  placeholder=" 请选择到货时间" disabled='disabled' value="{{endtime}}"/>
+        
+      <i-input  class="ilist" type="text"  title="配载信息"  value="{{peizai}}" disabled='disabled'/>
+         
+          <picker mode="selector" bindchange="bindchaoxianChange" value="{{cxIndex}}" range="{{chaoxians}}">
+                <i-input  class="ilist" type="text"  title="是否超限"  value="{{chaoxian}}" disabled='disabled'/>
+          </picker>
         <i-input  class="ilist" type="text" bind:change='productname' title="货物名称"  placeholder=" 货物名称" />
         <i-input  class="ilist" type="text" bind:change='mass' title="货物重量"  placeholder=" 重量(吨)"  />
         <view class="ckg">
@@ -44,6 +51,7 @@
         </view>
 
         <i-input wx:if="{{!pickerViewShow}}" class="ilist" type="text" bind:change='remark' title="运单备注"  placeholder=" 运单备注"   value="{{remark}}"/>
+        <i-input wx:if="{{!pickerViewShow}}" class="ilist" type="text" bind:change='youka' title="油卡金额"  placeholder=" 油卡金额"   value="{{youka}}"/>
 </view>
 
 <view class="pick_datetime" wx:if="{{pickerViewShow}}" animation="{{pickerAnimation}}" style="{{pickerViewStyle}}">
@@ -71,7 +79,7 @@
     <!--主页-->
     <view   style="width:60%;text-align:center;border-right:1px  #E8E8E8 solid;">
         <view style="font-size:26rpx;height:50rpx;line-height:50rpx;color:#ED1C24;margin-top:5rpx;">￥{{money}}元</view>
-        <view style="height:50rpx;font-size:26rpx;line-height:50rpx;color:#666666;margin-top:-10rpx;">{{mass}}吨 * {{distance}}公里 * {{price_dun}}元/吨/公里</view>
+        <view style="height:50rpx;font-size:26rpx;line-height:50rpx;color:#666666;margin-top:-10rpx;">{{mass}}吨 * {{distance}}公里 * {{price}}元/吨/公里</view>
           
     </view>
 

@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "评价",
+  "navigationBarTitleText": "投诉",
   "usingComponents": {
     "i-cell-group": "../../dist/cell-group/index",
     "i-cell": "../../dist/cell/index",

@@ -283,14 +283,14 @@ background-color: #E8E8E8;
 
 
 .feiyong_left{
-  width: 30%;
+  width: 20%;
   text-align: left;
   height: 40rpx;
   line-height: 40rpx;
   
 }
 .feiyong_right{
-  width: 70%;
+  width: 80%;
   text-align: right;
   height: 40rpx;
   line-height: 40rpx;

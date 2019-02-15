@@ -41,6 +41,21 @@ Page({
     console.log(options)
     if(options.type=='sendfrom')//发件人
     {
+      if(options.frominfo)
+      {
+        console.log(JSON.parse(options.frominfo))
+        var addinfo = JSON.parse(options.frominfo)
+        _this.setData({ 
+          longitude: addinfo.location.coordinates[0],
+          latitude: addinfo.location.coordinates[1],
+          name: addinfo.name,//姓名
+          phone: addinfo.phone,//电话
+          address: addinfo.address,//地址默认显示
+          note: addinfo.note,//地址备注
+          city: addinfo.city,//城市
+        })
+      }
+
       _this.setData({ 
         prevaction:'sendfrom',
         savetoadd: true,//单选按钮勾选是否保存到地址簿
@@ -48,6 +63,19 @@ Page({
     }
     else if(options.type=='sendto')//收件人
     {
+      if (options.toinfo) {
+        console.log(JSON.parse(options.toinfo))
+        var addinfo = JSON.parse(options.toinfo)
+        _this.setData({
+          longitude: addinfo.location.coordinates[0],
+          latitude: addinfo.location.coordinates[1],
+          name: addinfo.name,//姓名
+          phone: addinfo.phone,//电话
+          address: addinfo.address,//地址默认显示
+          note: addinfo.note,//地址备注
+          city: addinfo.city,//城市
+        })
+      }
       _this.setData({ 
         prevaction: 'sendto',
         savetoadd: true,//单选按钮勾选是否保存到地址簿
@@ -64,6 +92,7 @@ Page({
     else if (options.type == 'edit')//编辑
     {
       var addinfo = JSON.parse(options.addinfo)
+      console.log(addinfo)
       _this.setData({
         id:addinfo._id,
         longitude: addinfo.longitude,

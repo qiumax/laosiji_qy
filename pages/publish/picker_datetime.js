@@ -52,9 +52,12 @@ var pickerDatetime = function(obj) {
 //启用时间选择器的方法
 pickerDatetime.prototype.setPicker = function(pickerName) {
   var _this = this;
-  var pickerPreFlag = false;
+  var pickerPreFlag = true;
+  console.log(_this.page.data[pickerName])
+
   if (this.page.data[pickerName] == undefined || this.page.data[pickerName] == '') {
     //未有原先值，不处理
+    console.log('no')
     var pickerPreDate = new Date();
     var pickerPreYear = pickerPreDate.getFullYear();
     var pickerPreMonth = pickerPreDate.getMonth()+1;
@@ -62,16 +65,23 @@ pickerDatetime.prototype.setPicker = function(pickerName) {
     var pickerPreHour = pickerPreDate.getHours();
     var pickerPreMinute = pickerPreDate.getMinutes();
     var obj = new Object();
-    obj[pickerName] = pickerPreYear+'-'+pickerPreMonth+'-' + pickerPreDay+' '+ addDatetimeZero(pickerPreHour)+':' + addDatetimeZero(pickerPreMinute);
+    obj[pickerName] = pickerPreYear+'-'+pickerPreMonth+'-' + pickerPreDay+' '+ addDatetimeZero(pickerPreHour);
     this.page.setData(obj);
   } else {
-    var pickerPreDate = new Date(Date.parse(this.page.data[pickerName].replace('年','/').replace('月','/').replace('日','/')));
-    var pickerPreYear = pickerPreDate.getFullYear();
-    var pickerPreMonth = pickerPreDate.getMonth()+1;
-    var pickerPreDay = pickerPreDate.getDate();
-    var pickerPreHour = pickerPreDate.getHours();
-    var pickerPreMinute = pickerPreDate.getMinutes();
-    
+    console.log('yes')
+    var selecttime = _this.page.data[pickerName]
+    console.log(selecttime)
+    var select = selecttime.split(' ')
+    console.log(select[0])
+    console.log(select[1])
+    var pickerPreYear = select[0].split("-")[0];
+    var pickerPreMonth = select[0].split("-")[1];
+    var pickerPreDay = select[0].split("-")[2];
+
+    var pickerPreHour = select[1].split(":")[0] / 2
+   
+    console.log(pickerPreMonth)
+    console.log(pickerPreHour)
   }
   this.pickerName = pickerName;
   this.pickerDateTextArr = [];
@@ -81,6 +91,7 @@ pickerDatetime.prototype.setPicker = function(pickerName) {
   this.pickerMinuteTextArr = [];
   this.pickerMinuteValueArr = [];
   var pickerNowDate = new Date();
+  
   var pickerNowYear = pickerNowDate.getFullYear();
   var pickerNowHour = pickerNowDate.getHours();
   var pickerNowMinute = pickerNowDate.getMinutes();
@@ -101,6 +112,7 @@ pickerDatetime.prototype.setPicker = function(pickerName) {
     var d = new Date();
     d.setDate(d.getDate() + i);
     var m = d.getMonth() + 1;
+    m = m > 9 ? m : '0' + m
 
     let w = pickerWeekArr[d.getDay()];
     if(i==0)
@@ -109,42 +121,41 @@ pickerDatetime.prototype.setPicker = function(pickerName) {
     }
     else
     {
-      this.pickerDateTextArr.push(m + '月' + d.getDate() + '日 星期' + w);
+      this.pickerDateTextArr.push(m + '月' + d.getDate() + '日');
     }
     this.pickerDateValueArr.push(d.getFullYear() + '-' + m + '-' + d.getDate() + '');
+    if (pickerPreMonth == m && pickerPreDay == d.getDate()) pickerDateIndex=i
     
   }
 
   //获取小时和分钟的数组，设置默认值
   if (pickerPreFlag) {
-    for (let i=0;i < 24; i++ ) {
+    for (let i=0;i < 24; i=i+2 ) {
       this.pickerHourValueArr.push(i);
-      this.pickerHourTextArr.push(addDatetimeZero(i));
+      var end = i+2
+      var t = new Array(2 - i.toString().length + 1).join("0") + i;
+      var t1 = new Array(2 - end.toString().length + 1).join("0") + end;
+      this.pickerHourTextArr.push(t+":00~"+t1+":00");
+      console.log(pickerPreHour)
       if (pickerPreHour == i) pickerHourIndex=i;
     }
-    for (let i=0;i < 60; i++ ) {
-      this.pickerMinuteValueArr.push(i);
-      this.pickerMinuteTextArr.push(addDatetimeZero(i));
-      if (pickerPreMinute == i) pickerMinuteIndex = i;
-    }
+    
   } else {
-    for (let i=0;i < 24; i++ ) {
-      this.pickerHourValueArr.push(i);
-      this.pickerHourTextArr.push(addDatetimeZero(i));
+    for (let i=0;i < 24; i=i+2 ) {
+      var end = i + 2
+      var t = new Array(2 - i.toString().length + 1).join("0") + i;
+      var t1 = new Array(2 - end.toString().length + 1).join("0") + end;
+      this.pickerHourTextArr.push(t + ":00~" + t1 + ":00");
       if (pickerNowHour == i) pickerHourIndex=i;
     }
-    for (let i=0;i < 60; i++ ) {
-      this.pickerMinuteValueArr.push(i);
-      this.pickerMinuteTextArr.push(addDatetimeZero(i));
-      if (pickerNowMinute == i) pickerMinuteIndex = i;
-    }
+   
   }
   //setData调用页面的选择器值、默认值
   var newObj = {};
   newObj['pickerDateTextArr'] = this.pickerDateTextArr;
   newObj['pickerHourTextArr'] = this.pickerHourTextArr;
   newObj['pickerMinuteTextArr'] = this.pickerMinuteTextArr;
-  newObj['pickDatetimeValue'] = [pickerDateIndex, pickerHourIndex, pickerMinuteIndex];
+  newObj['pickDatetimeValue'] = [pickerDateIndex, pickerHourIndex];
   this.page.setData(newObj);
   
   if (this.animation == '') {
@@ -191,7 +202,7 @@ pickerDatetime.prototype.setPicker = function(pickerName) {
   this.page.bindChange = function(e) {
     var val = e.detail.value
     var newObj = {};
-    newObj[pickerName] = _this.pickerDateValueArr[val[0]]+ ' ' + _this.pickerHourTextArr[val[1]]+':'+ _this.pickerMinuteTextArr[val[2]];
+    newObj[pickerName] = _this.pickerDateValueArr[val[0]]+ ' ' + _this.pickerHourTextArr[val[1]];
     console.log(val)
     console.log(newObj)
     this.setData(newObj);

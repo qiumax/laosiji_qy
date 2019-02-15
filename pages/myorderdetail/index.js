@@ -540,6 +540,7 @@ Page({
               success: function (res) {
                 console.log(res)
                 if (!res.data.err) {
+                  wx.setStorageSync('tempphone', '');
                   if (res.data.ok == 1) {
                     _this.getOrderDetail()
                     wx.showToast({
@@ -637,7 +638,11 @@ Page({
             }
 
             _this.setData({ interval: interval })
-            _this.setData({ orderinfo: res.data.order })
+
+            var orderinfo = res.data.order
+            orderinfo.time = util.formatDate(orderinfo.time)
+            orderinfo.arrive_time = util.formatDate(orderinfo.arrive_time)
+            _this.setData({ orderinfo: orderinfo })
 
 
             //判断司机是否确认交货
@@ -874,6 +879,30 @@ Page({
       urls: _this.data.orderinfo.plat_handle_tousu.pics
     })
   },
+
+
+  //企业评价
+  show_com_pics: function (e) {
+    console.log(e)
+    var _this = this
+    var img = e.currentTarget.dataset.img
+    wx.previewImage({
+      current: img,
+      urls: _this.data.orderinfo.comment_to_company.pics
+    })
+  },
+
+  //司机
+  show_driver_pics: function (e) {
+    console.log(e)
+    var _this = this
+    var img = e.currentTarget.dataset.img
+    wx.previewImage({
+      current: img,
+      urls: _this.data.orderinfo.comment_to_driver.pics
+    })
+  },
+
   /**
    * 用户点击右上角分享
    */

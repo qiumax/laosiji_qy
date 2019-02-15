@@ -609,7 +609,11 @@ Page({
             }
 
             _this.setData({ interval: interval })
-            _this.setData({ orderinfo: res.data.order })
+            var orderinfo = res.data.order
+            orderinfo.time = util.formatDate(orderinfo.time)
+            orderinfo.arrive_time = util.formatDate(orderinfo.arrive_time)
+            _this.setData({ orderinfo: orderinfo })
+            _this.setData({ order_id: res.data.order._id })
 
 
             //判断司机是否确认交货
@@ -620,7 +624,8 @@ Page({
             }
             //image
             if(res.data.image){
-              _this.setData({ orderimg: app.globalData.host+res.data.image})
+                console.log(app.globalData.host + res.data.image)
+              _this.setData({ orderimg: app.globalData.host + res.data.image + "?" + Math.random() * 9999 + 1})
             }
             _this.showmarkers()
           }
@@ -671,6 +676,83 @@ Page({
     wx.previewImage({
       current: img,
       urls: _this.data.orderinfo.plat_handle_tousu.pics
+    })
+  },
+
+  //企业评价
+  show_com_pics: function (e) {
+    console.log(e)
+    var _this = this
+    var img = e.currentTarget.dataset.img
+    wx.previewImage({
+      current: img,
+      urls: _this.data.orderinfo.comment_to_company.pics
+    })
+  },
+
+  //司机
+  show_driver_pics: function (e) {
+    console.log(e)
+    var _this = this
+    var img = e.currentTarget.dataset.img
+    wx.previewImage({
+      current: img,
+      urls: _this.data.orderinfo.comment_to_driver.pics
+    })
+  },
+
+//取消运单
+  cancleOrder:function(e){
+    var _this  = this
+    handlogin.isLogin(() => {
+      wx.request({
+        url: app.globalData.host + '/api/order/cancleOrder',
+        data: {
+          'user_id': wx.getStorageSync('user_id'),
+          's_id': wx.getStorageSync('s_id'),
+          'order_id': _this.data.order_id
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/json'
+        }, // 设置请求的 header
+        success: function (res) {
+          console.log(res)
+          if (!res.data.err) {
+            if(res.data.ok == 1)
+            {
+              wx.showToast({
+                icon: 'none',
+                title: '运单取消成功！',
+                duration: 3000,
+                success(res) {
+                  setTimeout(function () {
+                    wx.reLaunch({
+                      url: '/pages/index/index',
+                    })
+                  }, 2000);
+
+                }
+              })
+            }
+            else
+            {
+              wx.showToast({
+                icon: 'none',
+                title: '运单取消失败！',
+                duration: 3000,
+              })
+            }
+           
+          }
+          else {
+            handlogin.handError(res, _this.cancleOrder)
+          }
+        },
+        fail: function (res) {
+          handlogin.handError(res, _this.cancleOrder)
+        }
+      })
     })
   },
   /**

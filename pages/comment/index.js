@@ -213,16 +213,16 @@ Page({
       return false
     }
 
-    if (!_this.data.pics || _this.data.pics.length == 0) {
-      _this.setData({ showUpload: true })
-      _this.setData({ showUpload0: true })
-      wx.showToast({
-        title: '请先上传图片',
-        icon: 'none',
-        duration: 5000
-      })
-      return false
-    }
+    // if (!_this.data.pics || _this.data.pics.length == 0) {
+    //   _this.setData({ showUpload: true })
+    //   _this.setData({ showUpload0: true })
+    //   wx.showToast({
+    //     title: '请先上传图片',
+    //     icon: 'none',
+    //     duration: 5000
+    //   })
+    //   return false
+    // }
 
     var comment_to_driver = new Array()
     comment_to_driver = {
@@ -252,6 +252,7 @@ Page({
           wx.hideLoading()
           console.log(res)
           if (!res.data.err && res.data.ok=='1') {
+            wx.setStorageSync('tempphone', '');
             wx.showToast({
               title: '提交成功！',
               duration: 2000,
